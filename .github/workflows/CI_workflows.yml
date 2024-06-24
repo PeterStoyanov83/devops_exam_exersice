@@ -25,9 +25,9 @@ jobs:
       run: npx playwright install
 
     - name: Start server
-      run: npm start &
-      env:
-        PORT: 3001
+      run: |
+        nohup npm start &
+        echo $! > server.pid
 
     - name: Wait for server to be ready
       run: sleep 15
@@ -43,7 +43,6 @@ jobs:
         if [ -f server.pid ]; then
           kill $(cat server.pid)
         fi
-    
 
     - name: Deploy to Render
       env:
@@ -53,5 +52,5 @@ jobs:
         -H 'Accept: application/json' \
         -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
         -H 'Content-Type: application/json' \
-        -d '{"serviceId": "<your-service-id>", "clearCache": false}' \
-        https://api.render.com/v1/services/<your-service-id>/deploys
+        -d '{"serviceId": "srv-cprurtl6l47c73dsrq1g", "clearCache": false}' \
+        https://api.render.com/v1/services/srv-cprurtl6l47c73dsrq1g/deploys
