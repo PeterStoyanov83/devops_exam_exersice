@@ -10,7 +10,7 @@ shoppingListController.setup(app, shoppingList);
 
 let port = process.argv[2];
 if (!port) port = process.env['PORT'];
-if (!port) port = 8080;
+if (!port) port = 3001;
 
 app.listen(port, () => {
   console.log(`App started. Listening at http://localhost:${port}`);
