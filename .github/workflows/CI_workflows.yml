@@ -39,7 +39,11 @@ jobs:
       run: npm run test:ui
 
     - name: Stop server
-      run: pkill -F server.pid
+      run: |
+        if [ -f server.pid ]; then
+          kill $(cat server.pid)
+        fi
+    
 
     - name: Deploy to Render
       env:
